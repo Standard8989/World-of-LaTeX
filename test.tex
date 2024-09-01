@@ -1,0 +1,211 @@
+\documentclass[paper=b5]{jlreq}
+\usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts}
+
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+
+\begin{document}
+
+\title{\TeX 入門}
+\author{Standard}
+\maketitle
+
+\section{What is \TeX\ and \LaTeX?}
+
+ようこそみなさん \TeX の世界へ。\TeX \footnote{"テックス"ではなく"テフ"や"テック"と読む} とは簡単に言えば数式を含む文章を簡単にpdf文章として作成するためのソフトです。
+ただ、Wordのように決まったエディタがあるわけでもなく、書いたものがそのままの形で見えるわけでもなく、一種のプログラミング言語のようにソースコードを記述して、それを \TeX を用いてpdfなどの閲覧用のファイル形式に変換して記述します。
+ここで、\LaTeX という別のソフトウェアがあります。これは \TeX を用いてもっと簡単に論文やレポートを作成するためのものです。通常 \TeX と言ったらこっちの \LaTeX \footnote{こっちはラテフとかレイテックと読む} を指します。
+これから、なぜ文章作成ソフトウェアではなく \TeX を使うのかというと、普通のWordなどにも数式を記述する機能は簡単には備わっていますが、レポートや論文を書くにはあまりにも貧弱すぎ、また、フォントも見にくいものになってしまいます。そこでこの\TeX を使うのです。
+
+\TeX を使えば例えばこんな数式も
+
+\[
+  ax^2+bx+c=0 \; (a\neq0)
+\]
+\[
+  x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\]
+
+こんな数式も
+
+\[
+  \lim_{n \to \infty} \frac{1}{n} \sum_{k = 1}^{n} f \left( \frac{k}{n} \right) =
+  \int_{0}^{1} f(x) dx
+\]
+
+こーんな数式だって簡単に書けます。
+
+\[
+  L = \int_{\alpha}^{\beta} \sqrt{\left( \frac{dx}{dt} \right) ^ 2 + \left( \frac{dy}{dt} \right) ^ 2}
+\]
+
+これらの数式はこのように記述することで作成できます。
+
+\begin{lstlisting}[caption=LaTeX]
+\[
+  ax^2+bx+c=0 \; (a\neq0)
+\]
+\[
+  x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\]
+
+\[
+  \lim_{n \to \infty} \frac{1}{n} \sum_{k = 1}^{n} f \left( \frac{k}{n} \right) =
+  \int_{0}^{1} f(x) dx
+\]
+
+\[
+  L = \int_{\alpha}^{\beta} \sqrt{\left( \frac{dx}{dt} \right) ^ 2 + \left( \frac{dy}{dt} \right) ^ 2}
+\]
+\end{lstlisting}
+
+\section{How to install?}
+
+それでは、\TeX のインストール方法を説明します。Debian系Linux向けの説明しかしないので、Windows使いの方はWSL2をインストールして下さい\footnote{Windows環境に直接入れる方法もありますが、不具合やいろいろなパッケージを入れるときに不便なので、WSL上でのインストールをおすすめします。もし、それでもWindowsにインストールしたかったらTeX Live Windows等で検索してみて下さい。}。
+
+aptで以下のパッケージをインストールするだけで\TeX 自体のインストールは完了します\footnote{Ubuntu 24.04で確認済み}。
+\\
+\verb|$|sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja latexmk \\ latexindent texlive-extra-utils
+
+\section{Basic Usage}
+
+まずは数式ではなく、基本的な文章を作るための最初のフォーマットを紹介します。
+
+\begin{lstlisting}[caption=LaTeX]
+% '%' から文字列を始めることによって、LaTeX 文章内にコメントを書くことができる
+
+\documentclass[paper=b5]{jlreq}
+% documentclass にjlreq を指定、出力の用紙サイズをB5 に
+\usepackage{bxpapersize}
+% pdf の用紙サイズを変更するためのパッケージ
+
+\begin{document}
+% ここから文章を書いていく
+
+\title{Hello, \LaTeX !}
+% 文章タイトルの設定
+\author{Standard}
+% 著者の設定
+\maketitle
+% これらの設定でタイトルを表示
+
+\section{First \LaTeX document}
+% セクションの表示、この文章で言うところの"Basic Usage" とか
+
+Hello!
+% そのまま書くと普通に表示される
+
+\end{document}
+% ここまでが文章
+
+\end{lstlisting}
+
+まず、3行目でdocumentclassの指定を行います。これは\LaTeX の文章を作成する上での設定ファイルのようなもので、このdocumentclassに含まれる情報と、文章のファイルに書かれた情報でpdfを作成します。
+このdocumentclassにはオプションをつけることができ、この例ではpaper=b5を指定してpdfの文章のサイズを指定しています。
+
+5行目はpdfの紙サイズを指定するためのパッケージを使うことを宣言しています。パッケージとは、LaTeXにコマンドや機能を追加するための物で、いろいろな用途のための物が存在します。このパッケージでは、3行目でpaper=b5を指定しましたが、このままではpdfのA4のサイズにB5の文章を印刷したような状態になってしまいます、そこでその紙サイズも文章サイズに合わせるためにパッケージを持ってきています。\footnote{よく使うパッケージはさっきのインストールで導入済みのため、新たにインストールする必要はないです。}
+
+8行目の\verb|\begin{document}|から24行目の\verb|\end{document}|までをこれらの宣言で挟むことで、その間にかいたものが最終的な文章に含まれる部分となります。HTMLで言うところの\verb|<body><\body>|に当たるものですね。これらの\verb|\begin|で始め、\verb|\end|で閉じることで作成される部分は環境と呼ばれ、document環境以外にも図を表示するためのfigure環境や数式を記述するためのequation環境、表を作るためのtable環境などが存在します。
+
+11行目からはタイトルの設定です。タイトル内でもLaTeXの構文は有効なので今回のようにタイトル内で\LaTeX のような特殊な文字を入れることも可能です。
+
+18行目、\verb|\section|は段落を表示する宣言です。
+
+そして21行目のように何も宣言せずにベタ書きをすると、本文の文章となります。
+
+\section{Writing Formula}
+
+\LaTeX で数式を書くのは簡単です。結局数式なんていくつかの記号の組み合わせなのでパパっと覚えちゃいましょう。
+
+\begin{table}[H]
+  \begin{tabular}{l|l}
+    $\verb|\frac{p}{q}|$                                     &
+    $\displaystyle \frac{p}{q}$                                \\
+
+    $\verb|\left\lfloor x\right\rfloor|$                     &
+    $\displaystyle \left\lfloor x\right\rfloor$                \\
+
+    $\verb|\sqrt{b^2 - 4ac}|$                                &
+    $\displaystyle \sqrt{b^2 - 4ac}$                           \\
+
+    $\verb|\sqrt[3]{27} = 3|$                                &
+    $\displaystyle \sqrt[3]{27} = 3$                           \\
+
+    $\verb|7 \equiv 1 \pmod 3|$                              &
+    $\displaystyle 7 \equiv 1 \pmod 3$                         \\
+
+    $\verb|a \leqq b| \tablefootnote{amssymbパッケージの使用が必要です。}$ &
+    $\displaystyle a \leqq b$                                  \\
+
+    $\verb|c \geqq d| \tablefootnote{同様にamssymbが必要}$         &
+    $\displaystyle c \geqq d$                                  \\
+
+    $\verb|\sin \theta|$                                     &
+    $\displaystyle \sin \theta$                                \\
+
+    $\verb|\cos \phi|$                                       &
+    $\displaystyle \cos \phi$                                  \\
+
+    $\verb|\tan \angle BAC|$                                 &
+    $\displaystyle \tan \angle BAC$                            \\
+
+    $\verb|\log_{10} n|$                                     &
+    $\displaystyle \log_{10} n$                                \\
+
+    $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$         &
+    $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$    \\
+
+    $\verb|\binom{x}{y}|$                                    &
+    $\displaystyle \binom{x}{y}$                               \\
+
+    $\verb|n \in \mathbb{N}|$                                &
+    $\displaystyle n \in \mathbb{N}$                           \\
+
+
+    $\verb|A \Rightarrow B \Leftrightarrow C|$               &
+    $\displaystyle A \Rightarrow B \Leftrightarrow C$          \\
+
+    $\verb|\sum_{k=1}^{n}|$                                  &
+    $\displaystyle \sum_{k=1}^{n} k^2$                         \\
+
+    $\verb|\lim_{n \to \infty}|$                             &
+    $\displaystyle \lim_{n \to \infty}$                        \\
+
+    $\verb|\int_{a}^{b}|$                                    &
+    $\displaystyle \int_{a}^{b}$                               \\
+  \end{tabular}
+\end{table}
+
+簡単な規則性としては、アンダーバー（\_）を付けると下に付き、キャレット（\verb|^|）を付けると上に付きます。これはコマンドでなくとも機能し、a\_nと書いてやると$a_n$と表示することができます。複数の文字をこのように付けるには\{ \}で囲む必要があります\verb|a_{under}^{upper}|と書けば$a_{under}^{upper}$このように表示されます。
+
+数式は地の文として記述しても表示できません。数式を書くには数式たのめの環境が必要です。
+数式を書くための環境は2種類あります。まずは文中に書くためのテキストスタイルです。
+テキストスタイルでの記述環境は\verb|$|で挟むことで作成できます。例えば\verb|$ax^2+bx+c=0 \quad (a \neq 0)$|\footnote{$\backslash$quadは空白を空けるためのコマンド}と記述すれば、$ax^2+bx+c=0 \quad (a \neq 0)$と表示できます。
+次に、ディスプレイスタイルです。これは、文中ではなく普通に数式を段落を変えて書くときの記法で、テキストスタイルと違い、\verb|$$|と、ドルマーク2つで挟むことでできます。
+例えば\verb|$$I_n = \int_{0}^{1} x^n e^x dx$$|と記述してやると、
+$$
+  I_n = \int_{0}^{1} x^n e^x dx
+$$
+というように表示できます。
+
+\section{Insert Figure and Chart}
+
+
+
+\end{document}
