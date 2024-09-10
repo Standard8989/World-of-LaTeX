@@ -1,5 +1,5 @@
-\documentclass[paper=b5]{jlreq}
-\usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts}
+\documentclass[paper=b5j]{jlreq}
+\usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts, refcount}
 
 \lstset{
   basicstyle={\ttfamily},
@@ -81,7 +81,7 @@
 
 aptで以下のパッケージをインストールするだけで\TeX 自体のインストールは完了します\footnote{Ubuntu 24.04で確認済み}。
 \\
-\verb|$|sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja latexmk \\ latexindent texlive-extra-utils
+\verb|$|sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja \\ latexmk texlive-extra-utils
 
 \section{Basic Usage}
 
@@ -135,60 +135,68 @@ Hello!
 
 \begin{table}[H]
   \begin{tabular}{l|l}
-    $\verb|\frac{p}{q}|$                                     &
-    $\displaystyle \frac{p}{q}$                                \\
+    $\verb|p \div q \times r = \frac{pr}{q}|$                               &
+    $\displaystyle p \div q \times r = \frac{pr}{q}$                          \\
 
-    $\verb|\left\lfloor x\right\rfloor|$                     &
-    $\displaystyle \left\lfloor x\right\rfloor$                \\
+    $\verb|\left\lfloor x\right\rfloor|$                                    &
+    $\displaystyle \left\lfloor x\right\rfloor$                               \\
 
-    $\verb|\sqrt{b^2 - 4ac}|$                                &
-    $\displaystyle \sqrt{b^2 - 4ac}$                           \\
+    $\verb|\sqrt{b^2 - 4ac}|$                                               &
+    $\displaystyle \sqrt{b^2 - 4ac}$                                          \\
 
-    $\verb|\sqrt[3]{27} = 3|$                                &
-    $\displaystyle \sqrt[3]{27} = 3$                           \\
+    $\verb|\sqrt[3]{27} = 3|$                                               &
+    $\displaystyle \sqrt[3]{27} = 3$                                          \\
 
-    $\verb|7 \equiv 1 \pmod 3|$                              &
-    $\displaystyle 7 \equiv 1 \pmod 3$                         \\
+    $\verb|7 \equiv 1 \pmod 3|$                                             &
+    $\displaystyle 7 \equiv 1 \pmod 3$                                        \\
 
-    $\verb|a \leqq b| \tablefootnote{amssymbパッケージの使用が必要です。}$ &
-    $\displaystyle a \leqq b$                                  \\
+    $\verb|a \leqq b| \tablefootnote{amssymbパッケージの使用が必要です。\label{amssymb}}$ &
+    $\displaystyle a \leqq b$                                                 \\
 
-    $\verb|c \geqq d| \tablefootnote{同様にamssymbが必要}$         &
-    $\displaystyle c \geqq d$                                  \\
+    $\verb|c \geqq d| \textsuperscript{\getrefnumber{amssymb}}$             &
+    $\displaystyle c \geqq d$                                                 \\
 
-    $\verb|\sin \theta|$                                     &
-    $\displaystyle \sin \theta$                                \\
+    $\verb|e \pm f \mp g|$                                                  &
+    $\displaystyle e \pm f \mp g$                                             \\
 
-    $\verb|\cos \phi|$                                       &
-    $\displaystyle \cos \phi$                                  \\
+    $\verb|\sin \theta|$                                                    &
+    $\displaystyle \sin \theta$                                               \\
 
-    $\verb|\tan \angle BAC|$                                 &
-    $\displaystyle \tan \angle BAC$                            \\
+    $\verb|\cos \phi|$                                                      &
+    $\displaystyle \cos \phi$                                                 \\
 
-    $\verb|\log_{10} n|$                                     &
-    $\displaystyle \log_{10} n$                                \\
+    $\verb|\tan \angle BAC|$                                                &
+    $\displaystyle \tan \angle BAC$                                           \\
 
-    $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$         &
-    $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$    \\
+    $\verb|\log_{10} n|$                                                    &
+    $\displaystyle \log_{10} n$                                               \\
 
-    $\verb|\binom{x}{y}|$                                    &
-    $\displaystyle \binom{x}{y}$                               \\
+    $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
+    $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
 
-    $\verb|n \in \mathbb{N}|$                                &
-    $\displaystyle n \in \mathbb{N}$                           \\
+    $\verb"|\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2"$             &
+    $\displaystyle |\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2$        \\
 
+    $\verb|{}_{n}\mathrm{C}_r|$                                             &
+    ${}_{n}\mathrm{C}_r$                                                      \\
 
-    $\verb|A \Rightarrow B \Leftrightarrow C|$               &
-    $\displaystyle A \Rightarrow B \Leftrightarrow C$          \\
+    $\verb|\binom{r}{n}| \tablefootnote{ベクトルの成分表示ではなく二項係数です}$               &
+    $\displaystyle \binom{n}{r}$                                              \\
 
-    $\verb|\sum_{k=1}^{n}|$                                  &
-    $\displaystyle \sum_{k=1}^{n} k^2$                         \\
+    $\verb|n \in \mathbb{N}|$                                               &
+    $\displaystyle n \in \mathbb{N}$                                          \\
 
-    $\verb|\lim_{n \to \infty}|$                             &
-    $\displaystyle \lim_{n \to \infty}$                        \\
+    $\verb|A \Rightarrow B \Leftrightarrow C|$                              &
+    $\displaystyle A \Rightarrow B \Leftrightarrow C$                         \\
 
-    $\verb|\int_{a}^{b}|$                                    &
-    $\displaystyle \int_{a}^{b}$                               \\
+    $\verb|\sum_{k=1}^{n}|$                                                 &
+    $\displaystyle \sum_{k=1}^{n} k^2$                                        \\
+
+    $\verb|\lim_{n \to \infty}|$                                            &
+    $\displaystyle \lim_{n \to \infty}$                                       \\
+
+    $\verb|\int_{a}^{b}|$                                                   &
+    $\displaystyle \int_{a}^{b}$                                              \\
   \end{tabular}
 \end{table}
 
@@ -204,8 +212,31 @@ $$
 $$
 というように表示できます。
 
+他にも環境を作ってその中に数式を記述する方法があり、こちらの方が書くのは少し手間ですが自由度は高いです。環境はいくつかあるのですが、まず始めにequation環境です。これは一行の数式を番号付きで表示するためのものです。
+
+\begin{lstlisting}[caption={LaTeX}]
+\begin{equation}
+  a^n + b^n = 
+\end{equation}
+\end{lstlisting}
+
+gather環境、これは数式を中央揃えで番号を付けて表示します。
+例えばこのように書けば
+
+\begin{lstlisting}[caption={LaTeX}]
+\begin{gather}
+  \int_{a}^{b} kf (x) dx = k \int_{a}^{b} f(x) dx
+  \int_{a}^{b} {f(x) + g(x)} dx = \int_{a}^{b} f(x) dx + \int_{a}^{b} g(x) dx
+  \int_{a}^{b} f(x) dx = \int_{a}^{b} f(t) dt
+\end{gather}
+\end{lstlisting}
+
+\begin{gather}
+  \int_{a}^{b} kf (x) dx = k \int_{a}^{b} f(x) dx \\
+  \int_{a}^{b} {f(x) + g(x)} dx = \int_{a}^{b} f(x) dx + \int_{a}^{b} g(x) dx \\
+  \int_{a}^{b} f(x) dx = \int_{a}^{b} f(t) dt \\
+\end{gather}
+
 \section{Insert Figure and Chart}
-
-
 
 \end{document}
