@@ -138,8 +138,8 @@ Hello!
     $\verb|p \div q \times r = \frac{pr}{q}|$                               &
     $\displaystyle p \div q \times r = \frac{pr}{q}$                          \\
 
-    $\verb|\left\lfloor x\right\rfloor|$                                    &
-    $\displaystyle \left\lfloor x\right\rfloor$                               \\
+    $\verb|\left\lfloor x\right\rfloor, \left\lceil y\right\rceil|$         &
+    $\displaystyle \left\lfloor x\right\rfloor, \left\lceil y\right\rceil$    \\
 
     $\verb|\sqrt{b^2 - 4ac}|$                                               &
     $\displaystyle \sqrt{b^2 - 4ac}$                                          \\
@@ -171,23 +171,26 @@ Hello!
     $\verb|\log_{10} n|$                                                    &
     $\displaystyle \log_{10} n$                                               \\
 
-    $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
-    $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
+    % $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
+    % $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
 
-    $\verb"|\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2"$             &
-    $\displaystyle |\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2$        \\
+    % $\verb"|\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2"$             &
+    % $\displaystyle |\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2$        \\
 
     $\verb|{}_{n}\mathrm{C}_r|$                                             &
     ${}_{n}\mathrm{C}_r$                                                      \\
 
-    $\verb|\binom{r}{n}| \tablefootnote{ベクトルの成分表示ではなく二項係数です}$               &
-    $\displaystyle \binom{n}{r}$                                              \\
+    % $\verb|\binom{r}{n}| \tablefootnote{ベクトルの成分表示ではなく二項係数です}$               &
+    % $\displaystyle \binom{n}{r}$                                              \\
 
     $\verb|n \in \mathbb{N}|$                                               &
     $\displaystyle n \in \mathbb{N}$                                          \\
 
     $\verb|A \Rightarrow B \Leftrightarrow C|$                              &
     $\displaystyle A \Rightarrow B \Leftrightarrow C$                         \\
+
+    $\verb|1 + \frac{1}{4} + \frac{1}{9} + \cdots|$                         &
+    $\displaystyle 1 + \frac{1}{4} + \frac{1}{9} + \cdots$                    \\
 
     $\verb|\sum_{k=1}^{n}|$                                                 &
     $\displaystyle \sum_{k=1}^{n} k^2$                                        \\
@@ -216,11 +219,15 @@ $$
 
 \begin{lstlisting}[caption={LaTeX}]
 \begin{equation}
-  a^n + b^n = 
+  x^n + y^n = z^n \qquad (n \geqq 3)
 \end{equation}
 \end{lstlisting}
 
-gather環境、これは数式を中央揃えで番号を付けて表示します。
+\begin{equation}
+  x^n + y^n = z^n \qquad (n \geqq 3)
+\end{equation}
+
+gather環境、これは複数行の数式を中央揃えで番号を付けて表示します。改行したい場所で\verb|\\|を書きましょう。
 例えばこのように書けば
 
 \begin{lstlisting}[caption={LaTeX}]
@@ -237,6 +244,84 @@ gather環境、これは数式を中央揃えで番号を付けて表示しま�
   \int_{a}^{b} f(x) dx = \int_{a}^{b} f(t) dt \\
 \end{gather}
 
+数式番号を付けたくない行には\verb|\notag|コマンドを使います。また、*を付けて\verb|\begin{gather*}|や\verb|\begin{equation*}|のように書けば、全ての行に対して番号を付けないことが可能です。逆に*を付けたとしても、\verb|\tag{hoge}|のように書くことで任意のタグを付けることも可能です。\verb|\tag*{fuga}|とすることで括弧で囲わないことも可能です。
+
+数式を=で揃えたい場合にはalign環境を使います。揃える場所で\verb|&|を書くことでその位置で揃います。
+
+\begin{lstlisting}[caption={LaTeX}]
+\begin{align}
+  \cos 2\theta &= \cos^2 \theta - \sin^2 \theta \tag{abcd} \\
+  &= 2\cos^2 \theta + 1 \\
+  &= 1 - 2\sin^2 \theta
+\end{align}
+\end{lstlisting}
+
+\begin{align}
+  \cos 2\theta & = \cos^2 \theta - \sin^2 \theta \tag{important} \\
+               & = 2\cos^2 \theta + 1                            \\
+               & = 1 - 2\sin^2 \theta
+\end{align}
+
+align環境は複数の\verb|&|で揃えることもできます。このとき、奇数番目の\verb|&|は揃える位置を、偶数番目の\verb|&|は区切りを表します。この区切りがなければ、どこまでを左の\verb|&|に合わせて、どこまでを右に合わせるのかが分からないからです。なおこの時、区切りが入った場所にはスペースが入ります。
+
+\begin{lstlisting}
+\begin{align*} 
+  a_1 &= c_1 & a_2+b_2 &= c_2 \\
+  a_3 &= c_3 & a_4     &= c_4+d_4
+\end{align*}
+\end{lstlisting}
+
+\begin{align*}
+  a_1 & = c_1 & a_2+b_2 & = c_2     \\
+  a_3 & = c_3 & a_4     & = c_4+d_4
+\end{align*}
+
+このままでは不便なのでスペースを入れたくない場合はalignat環境を使います。この環境は(各行の\verb|&|の個数の最大値 + 1)/2を指定することで、区切り文字の場所にスペースが入らなくなります。
+
+\begin{lstlisting}
+\begin{alignat}{2}
+  10x & {}+{} &  2y &= 0 \\
+  5x  & {}+{} & 37y &= 9
+\end{alignat}
+\end{lstlisting}
+
+\begin{alignat}{2}
+  10x & {}+{} & 2y  & = 0 \\
+  5x  & {}+{} & 37y & = 9
+\end{alignat}
+
+ここで、\verb|{}+{}|としているのは、こうしないと+が二項演算子の意味にならず、文字の間隔がおかしくなるためです。
+
+環境中に環境を組み込むこともできます。align環境と同様の機能を持つaligned環境やalignat版のalignedatを使うことで、これらの環境を環境の中で使うことができます。複数行の数式を括弧で囲いたい時などに使います。
+
+\begin{lstlisting}
+\begin{equation*}
+  f(n) = \left\{
+    \begin{alignedat}{2}
+      &n / 2 & \quad\mathrm{if} n &\equiv 0 \\
+      &3n + 1 & \quad\mathrm{if} n &\equiv 1
+    \end{alignedat}
+  \right. \pmod 2
+\end{equation*}
+\end{lstlisting}
+
+\begin{equation*}
+  f(n) = \left\{
+  \begin{alignedat}{2}
+     & n / 2  & \quad\mathrm{if} n & \equiv 0 \\
+     & 3n + 1 & \quad\mathrm{if} n & \equiv 1
+  \end{alignedat}
+  \right. \pmod 2
+\end{equation*}
+
+\section{Vector and Matrix}
+
 \section{Insert Figure and Chart}
+
+\section{Physics}
+
+\section{Insert References}
+
+\section{Other Information}
 
 \end{document}
