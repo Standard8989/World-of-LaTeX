@@ -171,11 +171,14 @@ Hello!
     $\verb|\log_{10} n|$                                                                  &
     $\displaystyle \log_{10} n$                                                             \\
 
-    % $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
-    % $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
+    $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
+    $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
 
-    % $\verb"|\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2"$             &
-    % $\displaystyle |\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2$        \\
+    $\verb"|\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2"$             &
+    $\displaystyle |\vec{b}|^2 - 2\vec{b} \cdot \vec{a} + |\vec{a}|^2$        \\
+
+    $\verb"\|\vec{b}\|^2 - 2\vec{b} \cdot \vec{a} + \|\vec{a}\|^2"$         &
+    $\displaystyle \|\vec{b}\|^2 - 2\vec{b} \cdot \vec{a} + \|\vec{a}\|^2$    \\
 
     $\verb|{}_{n}\mathrm{C}_r|$                                                           &
     ${}_{n}\mathrm{C}_r$                                                                    \\
@@ -315,6 +318,29 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 \end{equation*}
 
 \section{Vector and Matrix}
+
+行列の書き方はこうします。雰囲気としてはalignと同じようなものだと思ってもらえれば大丈夫です。
+
+$$
+  \begin{matrix}
+    a & b \\
+    c & d \\
+  \end{matrix}
+$$
+
+$$
+\begin{pmatrix}
+  a & b \\
+  c & d \\
+\end{pmatrix}
+$$
+
+$$
+\begin{bmatrix}
+  a & b \\
+  c & d \\
+\end{bmatrix}
+$$
 
 \section{Insert Figure and Chart}
 
