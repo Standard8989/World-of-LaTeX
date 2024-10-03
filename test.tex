@@ -1,5 +1,7 @@
 \documentclass[paper=b5j]{jlreq}
-\usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts, refcount}
+\usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts, refcount, jlisting}
+\usepackage[dvipdfmx]{graphicx}
+
 
 \lstset{
   basicstyle={\ttfamily},
@@ -26,11 +28,10 @@
 \author{Standard}
 \maketitle
 
-\section{What is \TeX\ and \LaTeX?}
+\section{What is \TeX ?}
 
 ようこそみなさん \TeX の世界へ。\TeX \footnote{"テックス"ではなく"テフ"や"テック"と読む} とは簡単に言えば数式を含む文章を簡単にpdf文章として作成するためのソフトです。
-ただ、Wordのように決まったエディタがあるわけでもなく、書いたものがそのままの形で見えるわけでもなく、一種のプログラミング言語のようにソースコードを記述して、それを \TeX を用いてpdfなどの閲覧用のファイル形式に変換して記述します。
-ここで、\LaTeX という別のソフトウェアがあります。これは \TeX を用いてもっと簡単に論文やレポートを作成するためのものです。通常 \TeX と言ったらこっちの \LaTeX \footnote{こっちはラテフとかレイテックと読む} を指します。
+ただ、Wordのように決まったエディタがあるわけでもなく、書いたものがそのままの形で見えるわけでもなく、一種のプログラミング言語のようにソースコードを記述して、それを \TeX を用いてpdfなどの閲覧用のファイル形式に変換して記述します\footnote{ここで、\LaTeX という別のソフトウェアがあります。これは \TeX を用いてもっと簡単に論文やレポートを作成するためのものです。通常 \TeX と言ったらこっちの \LaTeX を指します。}。
 これから、なぜ文章作成ソフトウェアではなく \TeX を使うのかというと、普通のWordなどにも数式を記述する機能は簡単には備わっていますが、レポートや論文を書くにはあまりにも貧弱すぎ、また、フォントも見にくいものになってしまいます。そこでこの\TeX を使うのです。
 
 \TeX を使えば例えばこんな数式も
@@ -134,6 +135,7 @@ Hello!
 \LaTeX で数式を書くのは簡単です。結局数式なんていくつかの記号の組み合わせなのでパパっと覚えちゃいましょう。
 
 \begin{table}[H]
+  \centering
   \begin{tabular}{l|l}
     $\verb|p \div q \times r = \frac{pr}{q}|$                               &
     $\displaystyle p \div q \times r = \frac{pr}{q}$                          \\
@@ -220,7 +222,7 @@ $$
 
 他にも環境を作ってその中に数式を記述する方法があり、こちらの方が書くのは少し手間ですが自由度は高いです。環境はいくつかあるのですが、まず始めにequation環境です。これは一行の数式を番号付きで表示するためのものです。
 
-\begin{lstlisting}[caption={LaTeX}]
+\begin{lstlisting}[caption=LaTeX]
 \begin{equation}
   x^n + y^n = z^n \qquad (n \geqq 3)
 \end{equation}
@@ -233,7 +235,7 @@ $$
 gather環境、これは複数行の数式を中央揃えで番号を付けて表示します。改行したい場所で\verb|\\|を書きましょう。
 例えばこのように書けば
 
-\begin{lstlisting}[caption={LaTeX}]
+\begin{lstlisting}[caption=LaTeX]
 \begin{gather}
   \int_{a}^{b} kf (x) dx = k \int_{a}^{b} f(x) dx
   \int_{a}^{b} {f(x) + g(x)} dx = \int_{a}^{b} f(x) dx + \int_{a}^{b} g(x) dx
@@ -251,7 +253,7 @@ gather環境、これは複数行の数式を中央揃えで番号を付けて�
 
 数式を=で揃えたい場合にはalign環境を使います。揃える場所で\verb|&|を書くことでその位置で揃います。
 
-\begin{lstlisting}[caption={LaTeX}]
+\begin{lstlisting}[caption=LaTeX]
 \begin{align}
   \cos 2\theta &= \cos^2 \theta - \sin^2 \theta \tag{abcd} \\
   &= 2\cos^2 \theta + 1 \\
@@ -267,10 +269,10 @@ gather環境、これは複数行の数式を中央揃えで番号を付けて�
 
 align環境は複数の\verb|&|で揃えることもできます。このとき、奇数番目の\verb|&|は揃える位置を、偶数番目の\verb|&|は区切りを表します。この区切りがなければ、どこまでを左の\verb|&|に合わせて、どこまでを右に合わせるのかが分からないからです。なおこの時、区切りが入った場所にはスペースが入ります。
 
-\begin{lstlisting}
-\begin{align*} 
-  a_1 &= c_1 & a_2+b_2 &= c_2 \\
-  a_3 &= c_3 & a_4     &= c_4+d_4
+\begin{lstlisting}[caption=LaTeX]
+\begin{align*}
+  a_1 & = c_1 & a_2+b_2 & = c_2     \\
+  a_3 & = c_3 & a_4     & = c_4+d_4
 \end{align*}
 \end{lstlisting}
 
@@ -281,10 +283,10 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 このままでは不便なのでスペースを入れたくない場合はalignat環境を使います。この環境は(各行の\verb|&|の個数の最大値 + 1)/2を指定することで、区切り文字の場所にスペースが入らなくなります。
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=LaTeX]
 \begin{alignat}{2}
-  10x & {}+{} &  2y &= 0 \\
-  5x  & {}+{} & 37y &= 9
+  10x & {}+{} & 2y  & = 0 \\
+  5x  & {}+{} & 37y & = 9
 \end{alignat}
 \end{lstlisting}
 
@@ -297,13 +299,13 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 環境中に環境を組み込むこともできます。align環境と同様の機能を持つaligned環境やalignat版のalignedatを使うことで、これらの環境を環境の中で使うことができます。複数行の数式を括弧で囲いたい時などに使います。
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=LaTeX]
 \begin{equation*}
   f(n) = \left\{
-    \begin{alignedat}{2}
-      &n / 2 & \quad\mathrm{if} n &\equiv 0 \\
-      &3n + 1 & \quad\mathrm{if} n &\equiv 1
-    \end{alignedat}
+  \begin{alignedat}{2}
+     & n / 2  & \quad\mathrm{if} n & \equiv 0 \\
+     & 3n + 1 & \quad\mathrm{if} n & \equiv 1
+  \end{alignedat}
   \right. \pmod 2
 \end{equation*}
 \end{lstlisting}
@@ -321,28 +323,138 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 行列の書き方はこうします。雰囲気としてはalignと同じようなものだと思ってもらえれば大丈夫です。
 
-$$
+\begin{lstlisting}[caption=LaTeX]
+\begin{equation*}
   \begin{matrix}
     a & b \\
     c & d \\
   \end{matrix}
-$$
+\end{equation*}
+\end{lstlisting}
 
-$$
-\begin{pmatrix}
-  a & b \\
-  c & d \\
-\end{pmatrix}
-$$
+\begin{equation*}
+  \begin{matrix}
+    a & b \\
+    c & d \\
+  \end{matrix}
+\end{equation*}
 
-$$
-\begin{bmatrix}
-  a & b \\
-  c & d \\
-\end{bmatrix}
-$$
+他の書き方での行列及び行列式は上のmatrix部分を以下の文字列に置き換えるだけです。
 
-\section{Insert Figure and Chart}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{c|c||c|c}
+    pmatrix                        &
+    $\displaystyle \begin{pmatrix}
+                       a & b \\
+                       c & d
+                     \end{pmatrix}$ &
+    bmatrix                        &
+    $\displaystyle \begin{bmatrix}
+                       a & b \\
+                       c & d
+                     \end{bmatrix}$    \\
+    vmatrix                        &
+    $\displaystyle \begin{vmatrix}
+                       a & b \\
+                       c & d
+                     \end{vmatrix}$ &
+    Vmatrix                        &
+    $\displaystyle \begin{Vmatrix}
+                       a & b \\
+                       c & d
+                     \end{Vmatrix}$    \\
+  \end{tabular}
+\end{table}
+
+\verb|\cdots| $\cdots$ や\verb|\vdots| $\vdots$ 、\verb|\ddots| $\ddots$ を駆使することでこのような行列を作ることができます。
+
+\begin{lstlisting}[caption=LaTeX]
+\begin{equation*}
+  \begin{pmatrix}
+    1      & 0      & \cdots & 0      \\
+    0      & 1      & \cdots & 0      \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0      & 0      & \cdots & 1
+  \end{pmatrix}
+\end{equation*}
+\end{lstlisting}
+
+\begin{equation*}
+  \begin{pmatrix}
+    1      & 0      & \cdots & 0      \\
+    0      & 1      & \cdots & 0      \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0      & 0      & \cdots & 1
+  \end{pmatrix}
+\end{equation*}
+
+ベクトルの成分表示は$1 \times n$行列として考えれば簡単です。
+
+\begin{lstlisting}[caption=LaTeX]
+\begin{gather*}
+  \vec{a} = \begin{pmatrix}
+    x_a \\ y_a
+  \end{pmatrix},
+  \vec{b} = \begin{pmatrix}
+    x_b \\ y_b
+  \end{pmatrix} \\
+  \vec{a} \cdot \vec{b} = x_a x_b + y_a y_b
+\end{gather*}
+\end{lstlisting}
+
+\begin{gather*}
+  \vec{a} = \begin{pmatrix}
+    x_a \\ y_a
+  \end{pmatrix},
+  \vec{b} = \begin{pmatrix}
+    x_b \\ y_b
+  \end{pmatrix} \\
+  \vec{a} \cdot \vec{b} = x_a x_b + y_a y_b
+\end{gather*}
+
+\section{Insert Chart and Figure}
+
+文章中に表を挿入するにはtable環境とtabular環境を使います。
+
+\begin{lstlisting}[caption=LaTeX]
+\begin{table}[htbp]
+  \centering
+  \caption{プログラミング言語一覧}
+  \begin{tabular}{l|ll}
+    言語       & 年代 & 開発                     \\ \hline
+    Fortran    & 1957 & John Warner Backus       \\
+    COBOL      & 1959 & Grace Murray Hopper      \\
+    (中略)
+    Rust       & 2010 & Graydon Hoare            \\
+  \end{tabular}
+\end{table}
+\end{lstlisting}
+
+\begin{table}[htbp]
+  \centering
+  \caption{プログラミング言語一覧}
+  \begin{tabular}{l|ll}
+    言語         & 年代   & 開発                       \\ \hline
+    Fortran    & 1957 & John Warner Backus       \\
+    COBOL      & 1959 & Grace Murray Hopper      \\
+    LISP       & 1960 & John McCarthy            \\
+    PL/I       & 1964 & IBM                      \\
+    BASIC      & 1964 & Dartmouth College        \\
+    C          & 1972 & Bell Laboratories        \\
+    C++        & 1983 & Bjarne Stroustrup        \\
+    Python     & 1991 & Guido van Rossum         \\
+    Java       & 1995 & Sun Microsystems(Oracle) \\
+    JavaScript & 1995 & Brendan Eich             \\
+    C\#        & 2000 & Microsoft                \\
+    Rust       & 2010 & Graydon Hoare            \\
+  \end{tabular}
+\end{table}
+
+まず始めにtable環境を作成し、その中でtabular環境を宣言します。
+表を文章の中心に揃えたければ\verb|\centering|宣言をします。\verb|\caption{キャプション}|を使うことで表の上部にキャプションを付けることもできます。
+tabluar環境には引数を与えます列の数だけその列の中心に要素を置きたければc、左側に置きたければl、右側ならrです。それぞれの文字の間に|を置くことでその本数だけ縦線を引くことも可能です。\verb|\hline|ではその列に横線を引くことができます、こちらも書けば書くだけ本数は増えます。
 
 \section{Physics}
 
