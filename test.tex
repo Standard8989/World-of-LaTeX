@@ -22,6 +22,8 @@
   lineskip=-0.5ex
 }
 
+\renewcommand{\lstlistingname}{Source}
+
 \begin{document}
 
 \title{\TeX 入門}
@@ -30,9 +32,9 @@
 
 \section{What is \TeX ?}
 
-ようこそみなさん \TeX の世界へ。\TeX \footnote{"テックス"ではなく"テフ"や"テック"と読む} とは簡単に言えば数式を含む文章を簡単にpdf文章として作成するためのソフトです。
-ただ、Wordのように決まったエディタがあるわけでもなく、書いたものがそのままの形で見えるわけでもなく、一種のプログラミング言語のようにソースコードを記述して、それを \TeX を用いてpdfなどの閲覧用のファイル形式に変換して記述します\footnote{ここで、\LaTeX という別のソフトウェアがあります。これは \TeX を用いてもっと簡単に論文やレポートを作成するためのものです。通常 \TeX と言ったらこっちの \LaTeX を指します。}。
-これから、なぜ文章作成ソフトウェアではなく \TeX を使うのかというと、普通のWordなどにも数式を記述する機能は簡単には備わっていますが、レポートや論文を書くにはあまりにも貧弱すぎ、また、フォントも見にくいものになってしまいます。そこでこの\TeX を使うのです。
+ようこそみなさん \TeX の世界へ。\TeX \footnote{"テックス"ではなく"テフ"や"テック"と読む} とは複雑な数式を含む文章を簡単に作成するためのソフトです。
+ただ、Wordのように決まったエディタがあるわけでもなく、書いたものがそのままの形で見えるわけでもなく、一種のプログラミング言語のようにソースコードを記述して、それを \TeX コンパイラを用いてpdfなどの閲覧用のファイル形式に変換して作成します\footnote{ここで、\LaTeX という別のソフトウェアがあります。これは \TeX を用いてもっと簡単に論文やレポートを作成するためのものです。通常 \TeX と言ったらこっちの \LaTeX を指します。}。
+なぜWordではなく \TeX を使うのかというと、Wordなどにも数式を記述する機能は備わっていますが、その機能がレポートや論文を書くにはあまりにも貧弱すぎ、また、フォントも見にくいものになってしまいます。そこでこの\TeX を使うのです。
 
 \TeX を使えば例えばこんな数式も
 
@@ -81,8 +83,18 @@
 それでは、\TeX のインストール方法を説明します。Debian系Linux向けの説明しかしないので、Windows使いの方はWSL2をインストールして下さい\footnote{Windows環境に直接入れる方法もありますが、不具合やいろいろなパッケージを入れるときに不便なので、WSL上でのインストールをおすすめします。もし、それでもWindowsにインストールしたかったらTeX Live Windows等で検索してみて下さい。}。
 
 aptで以下のパッケージをインストールするだけで\TeX 自体のインストールは完了します\footnote{Ubuntu 24.04で確認済み}。
-\\
-\verb|$|sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja \\ latexmk texlive-extra-utils
+
+\begin{center}
+  \$\ sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja \\ latexmk texlive-extra-utils
+\end{center}
+
+\section{How to use?}
+
+\TeX ファイルは".tex"というファイルにテキスト形式で保存されます。
+今回は例としてtest.texというファイルを作成したとします。これをコンパイルするには、ptex2pdfというコマンドを以下のように使用します。
+
+\centerline{\$\ ptex2pdf -l -ot -kanji=utf-8 -synctex=1 test.tex}
+作成したpdfファイルの出力先を指定するには、"-output-directory (ディレクトリ名)"を指定します。
 
 \section{Basic Usage}
 
@@ -137,41 +149,41 @@ Hello!
 \begin{table}[H]
   \centering
   \begin{tabular}{l|l}
-    $\verb|p \div q \times r = \frac{pr}{q}|$                                             &
-    $\displaystyle p \div q \times r = \frac{pr}{q}$                                        \\
+    $\verb|p \div q \times r = \frac{pr}{q}|$                               &
+    $\displaystyle p \div q \times r = \frac{pr}{q}$                          \\
 
-    $\verb|\left\lfloor x\right\rfloor, \left\lceil y\right\rceil|$                       &
-    $\displaystyle \left\lfloor x\right\rfloor, \left\lceil y\right\rceil$                  \\
+    $\verb|\left\lfloor x\right\rfloor, \left\lceil y\right\rceil|$         &
+    $\displaystyle \left\lfloor x\right\rfloor, \left\lceil y\right\rceil$    \\
 
-    $\verb|\sqrt{b^2 - 4ac}|$                                                             &
-    $\displaystyle \sqrt{b^2 - 4ac}$                                                        \\
+    $\verb|\sqrt{b^2 - 4ac}|$                                               &
+    $\displaystyle \sqrt{b^2 - 4ac}$                                          \\
 
-    $\verb|\sqrt[3]{27} = 3|$                                                             &
-    $\displaystyle \sqrt[3]{27} = 3$                                                        \\
+    $\verb|\sqrt[3]{27} = 3|$                                               &
+    $\displaystyle \sqrt[3]{27} = 3$                                          \\
 
-    $\verb|7 \equiv 1 \pmod 3|$                                                           &
-    $\displaystyle 7 \equiv 1 \pmod 3$                                                      \\
+    $\verb|7 \equiv 1 \pmod 3|$                                             &
+    $\displaystyle 7 \equiv 1 \pmod 3$                                        \\
 
     $\verb|a \leqq b| \tablefootnote{amssymbパッケージの使用が必要です。\label{amssymb}}$ &
-    $\displaystyle a \leqq b$                                                               \\
+    $\displaystyle a \leqq b$                                                 \\
 
-    $\verb|c \geqq d| \textsuperscript{\getrefnumber{amssymb}}$                           &
-    $\displaystyle c \geqq d$                                                               \\
+    $\verb|c \geqq d| \textsuperscript{\getrefnumber{amssymb}}$             &
+    $\displaystyle c \geqq d$                                                 \\
 
-    $\verb|e \pm f \mp g|$                                                                &
-    $\displaystyle e \pm f \mp g$                                                           \\
+    $\verb|e \pm f \mp g|$                                                  &
+    $\displaystyle e \pm f \mp g$                                             \\
 
-    $\verb|\sin \theta|$                                                                  &
-    $\displaystyle \sin \theta$                                                             \\
+    $\verb|\sin \theta|$                                                    &
+    $\displaystyle \sin \theta$                                               \\
 
-    $\verb|\cos \phi|$                                                                    &
-    $\displaystyle \cos \phi$                                                               \\
+    $\verb|\cos \phi|$                                                      &
+    $\displaystyle \cos \phi$                                                 \\
 
-    $\verb|\tan \angle BAC|$                                                              &
-    $\displaystyle \tan \angle BAC$                                                         \\
+    $\verb|\tan \angle BAC|$                                                &
+    $\displaystyle \tan \angle BAC$                                           \\
 
-    $\verb|\log_{10} n|$                                                                  &
-    $\displaystyle \log_{10} n$                                                             \\
+    $\verb|\log_{10} n|$                                                    &
+    $\displaystyle \log_{10} n$                                               \\
 
     $\verb|\overrightarrow{AB} = \vec{b} - \vec{a}|$                        &
     $\displaystyle \overrightarrow{AB} = \vec{b} - \vec{a}$                   \\
@@ -182,29 +194,29 @@ Hello!
     $\verb"\|\vec{b}\|^2 - 2\vec{b} \cdot \vec{a} + \|\vec{a}\|^2"$         &
     $\displaystyle \|\vec{b}\|^2 - 2\vec{b} \cdot \vec{a} + \|\vec{a}\|^2$    \\
 
-    $\verb|{}_{n}\mathrm{C}_r|$                                                           &
-    ${}_{n}\mathrm{C}_r$                                                                    \\
+    $\verb|{}_{n}\mathrm{C}_r|$                                             &
+    ${}_{n}\mathrm{C}_r$                                                      \\
 
     % $\verb|\binom{r}{n}| \tablefootnote{ベクトルの成分表示ではなく二項係数です}$               &
     % $\displaystyle \binom{n}{r}$                                              \\
 
-    $\verb|n \in \mathbb{N}|$                                                             &
-    $\displaystyle n \in \mathbb{N}$                                                        \\
+    $\verb|n \in \mathbb{N}|$                                               &
+    $\displaystyle n \in \mathbb{N}$                                          \\
 
-    $\verb|A \Rightarrow B \Leftrightarrow C|$                                            &
-    $\displaystyle A \Rightarrow B \Leftrightarrow C$                                       \\
+    $\verb|A \Rightarrow B \Leftrightarrow C|$                              &
+    $\displaystyle A \Rightarrow B \Leftrightarrow C$                         \\
 
-    $\verb|1 + \frac{1}{4} + \frac{1}{9} + \cdots|$                                       &
-    $\displaystyle 1 + \frac{1}{4} + \frac{1}{9} + \cdots$                                  \\
+    $\verb|1 + \frac{1}{4} + \frac{1}{9} + \cdots|$                         &
+    $\displaystyle 1 + \frac{1}{4} + \frac{1}{9} + \cdots$                    \\
 
-    $\verb|\sum_{k=1}^{n}|$                                                               &
-    $\displaystyle \sum_{k=1}^{n} k^2$                                                      \\
+    $\verb|\sum_{k=1}^{n}|$                                                 &
+    $\displaystyle \sum_{k=1}^{n} k^2$                                        \\
 
-    $\verb|\lim_{n \to \infty}|$                                                          &
-    $\displaystyle \lim_{n \to \infty}$                                                     \\
+    $\verb|\lim_{n \to \infty}|$                                            &
+    $\displaystyle \lim_{n \to \infty}$                                       \\
 
-    $\verb|\int_{a}^{b}|$                                                                 &
-    $\displaystyle \int_{a}^{b}$                                                            \\
+    $\verb|\int_{a}^{b}|$                                                   &
+    $\displaystyle \int_{a}^{b}$                                              \\
   \end{tabular}
 \end{table}
 
@@ -313,8 +325,8 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 \begin{equation*}
   f(n) = \left\{
   \begin{alignedat}{2}
-    & n / 2  & \quad\mathrm{if} n & \equiv 0 \\
-    & 3n + 1 & \quad\mathrm{if} n & \equiv 1
+     & n / 2  & \quad\mathrm{if} n & \equiv 0 \\
+     & 3n + 1 & \quad\mathrm{if} n & \equiv 1
   \end{alignedat}
   \right. \pmod 2
 \end{equation*}
@@ -461,5 +473,9 @@ tabluar環境には引数を与えます列の数だけその列の中心に要�
 \section{Insert References}
 
 \section{Other Information}
+
+\section{Postscript}
+
+夏休み前に書き始めたのに思ったより文量が多くなったのと、だらだらと書いていたのでたちばな祭に間に合いませんでした。受験生の身ではありますが、これは最後まで書き上げたいと思うので完全版は予餞会までお待ちください。作業用のリポジトリを公開するので、早く見たいという方はこのリンクをどうぞ(https://github.com/Standard8989/World-of-LaTeX)。
 
 \end{document}
