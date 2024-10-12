@@ -2,7 +2,6 @@
 \usepackage{listings, jvlisting, bxpapersize, amssymb, amsmath, float, tablefootnote, amsfonts, refcount, jlisting}
 \usepackage[dvipdfmx]{graphicx}
 
-
 \lstset{
   basicstyle={\ttfamily},
   identifierstyle={\small},
@@ -87,6 +86,96 @@ aptで以下のパッケージをインストールするだけで\TeX 自体の
 \begin{center}
   \$\ sudo apt install -y texlive-lang-japanese  texlive-latex-extra xdvik-ja \\ latexmk texlive-extra-utils
 \end{center}
+
+エディタは今回VS Codeを使用するとします\footnote{VS Codeのインストール方法は調べて下さい}。まずJames Yu氏のLaTeX Workshopという拡張機能を導入して下さい。そうしたらF1キーを入力、そのままダイアログにjsonと入力して"Preferences: Open User Settings (JSON)"を選択して下さい。そうしたらsettings.jsonが開くので、latex-workshopから始まるキーを全て削除、以下の設定をそのまま入力して下さい\footnote{コピペしたい場合はhttps://github.com/Standard8989/World-of-LaTeXを参照}。
+
+\begin{lstlisting}
+"latex-workshop.latex.tools": [
+    {
+        "command": "mkdir",
+        "args": [
+            "-p",
+            "output",
+        ],
+        "name": "tool_mkdir"
+    },
+    {
+        "command": "ptex2pdf",
+        "args": [
+            "-l",
+            "-ot",
+            "-kanji=utf8 -synctex=1",
+            "%DOC%",
+            "-output-directory",
+            "output",
+        ],
+        "name": "tool_ptex2pdf"
+    },
+    {
+        "command": "pbibtex",
+        "args": [
+            "output/%DOCFILE%",
+            "-kanji=utf8"
+        ],
+        "name": "tool_pbibtex"
+    }
+],
+"latex-workshop.latex.recipes": [
+    {
+        "name": "tex2pdf",
+        "tools": [
+            "tool_mkdir",
+            "tool_ptex2pdf",
+        ],
+    },
+    {
+        "name": "tex2pdf with bib",
+        "tools": [
+            "tool_ptex2pdf",
+            "tool_pbibtex",
+            "tool_ptex2pdf",
+            "tool_ptex2pdf"
+        ]
+    }
+],
+"latex-workshop.view.pdf.viewer": "tab",
+"latex-workshop.intellisense.package.enabled": true,
+"[latex]": {
+    "editor.wordWrap": "on",
+    "editor.wordSeparators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?。．、，（）「」『』［］｛｝《》てにをはがのともへでや ",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    "editor.bracketPairColorization.enabled": true,
+    "editor.unicodeHighlight.invisibleCharacters": true,
+    "editor.unicodeHighlight.allowedCharacters": {
+        "，": true,
+        "．": true,
+        "！": true,
+        "？": true,
+        "［": true,
+        "］": true,
+        "｛": true,
+        "｝": true,
+        "＜": true,
+        "＞": true,
+    },
+    "editor.stickyScroll.enabled": true,
+},
+"latex-workshop.latex.outDir": "%DIR%/output",
+"latex-workshop.message.error.show": false,
+"latex-workshop.message.warning.show": false,
+"latex-workshop.formatting.latex": "latexindent",
+\end{lstlisting}
+
+これでVS Codeで\TeX を始める準備ができました。左のバーの\TeX を開くことで、ファイルのビルドが簡単にできます。
 
 \section{How to use?}
 
