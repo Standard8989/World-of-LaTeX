@@ -60,7 +60,7 @@
 
 これらの数式はこのように記述することで作成できます。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \[
   ax^2+bx+c=0 \; (a\neq0)
 \]
@@ -100,7 +100,7 @@ aptで以下のパッケージをインストールするだけで\TeX 自体の
 
 まずは数式ではなく、基本的な文章を作るための最初のフォーマットを紹介します。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 % '%' から文字列を始めることによって、LaTeX 文章内にコメントを書くことができる
 
 \documentclass[paper=b5]{jlreq}
@@ -234,7 +234,7 @@ $$
 
 他にも環境を作ってその中に数式を記述する方法があり、こちらの方が書くのは少し手間ですが自由度は高いです。環境はいくつかあるのですが、まず始めにequation環境です。これは一行の数式を番号付きで表示するためのものです。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{equation}
   x^n + y^n = z^n \qquad (n \geqq 3)
 \end{equation}
@@ -247,7 +247,7 @@ $$
 gather環境、これは複数行の数式を中央揃えで番号を付けて表示します。改行したい場所で\verb|\\|を書きましょう。
 例えばこのように書けば
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{gather}
   \int_{a}^{b} kf (x) dx = k \int_{a}^{b} f(x) dx
   \int_{a}^{b} {f(x) + g(x)} dx = \int_{a}^{b} f(x) dx + \int_{a}^{b} g(x) dx
@@ -265,7 +265,7 @@ gather環境、これは複数行の数式を中央揃えで番号を付けて�
 
 数式を=で揃えたい場合にはalign環境を使います。揃える場所で\verb|&|を書くことでその位置で揃います。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{align}
   \cos 2\theta &= \cos^2 \theta - \sin^2 \theta \tag{abcd} \\
   &= 2\cos^2 \theta + 1 \\
@@ -281,7 +281,7 @@ gather環境、これは複数行の数式を中央揃えで番号を付けて�
 
 align環境は複数の\verb|&|で揃えることもできます。このとき、奇数番目の\verb|&|は揃える位置を、偶数番目の\verb|&|は区切りを表します。この区切りがなければ、どこまでを左の\verb|&|に合わせて、どこまでを右に合わせるのかが分からないからです。なおこの時、区切りが入った場所にはスペースが入ります。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{align*}
   a_1 & = c_1 & a_2+b_2 & = c_2     \\
   a_3 & = c_3 & a_4     & = c_4+d_4
@@ -295,7 +295,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 このままでは不便なのでスペースを入れたくない場合はalignat環境を使います。この環境は(各行の\verb|&|の個数の最大値 + 1)/2を指定することで、区切り文字の場所にスペースが入らなくなります。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{alignat}{2}
   10x & {}+{} & 2y  & = 0 \\
   5x  & {}+{} & 37y & = 9
@@ -311,7 +311,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 環境中に環境を組み込むこともできます。align環境と同様の機能を持つaligned環境やalignat版のalignedatを使うことで、これらの環境を環境の中で使うことができます。複数行の数式を括弧で囲いたい時などに使います。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{equation*}
   f(n) = \left\{
   \begin{alignedat}{2}
@@ -335,7 +335,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 行列の書き方はこうします。雰囲気としてはalignと同じようなものだと思ってもらえれば大丈夫です。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{equation*}
   \begin{matrix}
     a & b \\
@@ -382,7 +382,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 \verb|\cdots| $\cdots$ や\verb|\vdots| $\vdots$ 、\verb|\ddots| $\ddots$ を駆使することでこのような行列を作ることができます。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{equation*}
   \begin{pmatrix}
     1      & 0      & \cdots & 0      \\
@@ -404,7 +404,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 ベクトルの成分表示は$1 \times n$行列として考えれば簡単です。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{gather*}
   \vec{a} = \begin{pmatrix}
     x_a \\ y_a
@@ -430,7 +430,7 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 
 文章中に表を挿入するにはtable環境とtabular環境を使います。
 
-\begin{lstlisting}[caption=LaTeX]
+\begin{lstlisting}
 \begin{table}[htbp]
   \centering
   \caption{プログラミング言語一覧}
@@ -465,8 +465,33 @@ align環境は複数の\verb|&|で揃えることもできます。このとき�
 \end{table}
 
 まず始めにtable環境を作成し、その中でtabular環境を宣言します。
+table環境のオプションにはh,t,b,pの文字を指定します。hならば書いた位置に、tならばそのページの上部、bならば下部,そしてpならば最後のページに表を表示します。また、複数のオプションを同時に指定することができ、例えばhtbpとした場合はその順で表を表示しようと試行していき、可能なオプションが採用されます。また、floatパッケージを導入することで、Hオプションを使用することができ、これを指定した場合は強制的に宣言された位置に表示しようとします。
 表を文章の中心に揃えたければ\verb|\centering|宣言をします。\verb|\caption{キャプション}|を使うことで表の上部にキャプションを付けることもできます。
 tabluar環境には引数を与えます列の数だけその列の中心に要素を置きたければc、左側に置きたければl、右側ならrです。それぞれの文字の間に|を置くことでその本数だけ縦線を引くことも可能です。\verb|\hline|ではその列に横線を引くことができます、こちらも書けば書くだけ本数は増えます。
+
+\TeX で図を挿入するには。graphicxパッケージを導入する必要があります。
+\begin{center}
+  \verb|\usepackage[dvipdfmx]{graphicx}|
+\end{center}
+
+まず、figure環境を宣言し、その中でincludegraphic宣言をして図を持ってきます。
+
+\begin{lstlisting}
+\begin{figure*}[htbp]
+  \centering
+  \includegraphics[width=10cm]{resource/graph1.jpg}
+  \caption{清水寺 修学旅行にて}
+\end{figure*}
+\end{lstlisting}
+
+\begin{figure*}[htbp]
+  \centering
+  \includegraphics[width=10cm]{resource/graph1.jpg}
+  \caption{清水寺 修学旅行にて}
+\end{figure*}
+
+includegraphicsには複数のオプションを渡すことができ、height、widthで画像のサイズ、scaleオプションでオリジナル画像サイズの拡大倍率をそれぞれ指定することができます。また、表と同様に、位置オプションや中央揃え、キャプションを利用することができます。
+画像のファイル指定には作成中のtexファイルからの相対パスを指定します\footnote{相対パスが分からなければとりあえずtexファイルと同じ場所に画像を置いてそのファイル名を書けば大丈夫です。}。
 
 \section{Physics}
 
